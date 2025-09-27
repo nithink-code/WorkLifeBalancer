@@ -1,0 +1,160 @@
+/* Modal overlay covering entire viewport */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+/* Main card background and styling */
+.signup-card {
+  background-color: #0f0f0f;
+  border-radius: 12px;
+  padding: 2rem 2.2rem;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  color: white;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.5);
+  font-family: "Inter", sans-serif;
+}
+
+/* Close button in top-right corner */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* Title styling */
+.signup-card h2 {
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin: 0 0 0.3rem 0;
+  text-align: center;
+}
+
+/* Subtitle below title */
+.sub-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-bottom: 1.4rem;
+}
+
+/* Form labels */
+.signup-form label {
+  font-size: 0.85rem;
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #ccc;
+  text-align: left;
+}
+
+/* Inputs */
+.signup-form input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #1c1c1c;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+/* Placeholder color */
+.signup-form input::placeholder {
+  color: #777;
+}
+
+/* Input focus */
+.signup-form input:focus {
+  outline: none;
+  border-color: #34B27B;
+  box-shadow: 0 0 0 2px rgba(153, 158, 227, 0.2);
+}
+
+/* Google button */
+.google-btn {
+  background: white;
+  color: black;
+  border: none;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 6px;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 1.2rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.google-btn:hover {
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
+}
+
+/* Google logo size */
+.google-logo {
+  width: 18px;
+  height: 18px;
+}
+
+/* "Or" divider text */
+.or-divider {
+  text-align: center;
+  color: #aaa;
+  font-size: 0.85rem;
+  margin: 0.6rem 0;
+}
+
+/* Primary sign up button */
+.btn-primary-custom {
+  background-color: #34B27B;
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 6px;
+  width: 100%;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.btn-primary-custom:hover {
+  opacity: 0.9;
+}
+
+/* Forgot password link */
+.forgot-link {
+  color: #34B27B;
+  font-size: 0.85rem;
+  text-align: right;
+  display: block;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+/* Error alert */
+.alert-danger {
+  background: rgba(220, 53, 69, 0.1);
+  color: #f88;
+  border: 1px solid rgba(220, 53, 69, 0.4);
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}

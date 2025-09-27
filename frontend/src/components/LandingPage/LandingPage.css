@@ -1,0 +1,131 @@
+/* Base fonts and viewport */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  background-color: #000000;
+  color: white;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  overflow: hidden;
+}
+
+/* Content section */
+.content-wrapper {
+  height: calc(100vh - 72px);
+  margin-top: 72px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+  width: 100vw;
+  color: #34B27B;
+  text-align: left;
+  gap: 3rem;
+  padding: 2rem 3rem;
+  box-sizing: border-box;
+  user-select: none;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+/* Text container */
+.text-container {
+  flex: 1 1 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.3rem;
+}
+
+.welcome-title {
+  font-size: 2.6rem;
+  font-weight: 500;
+  margin: 0;
+  user-select: none;
+  line-height: 1.15;
+  color: #34B27B;
+}
+
+/* Smaller subtitle text changed to solid white */
+.welcome-subtitle {
+  font-size: 1rem;
+  max-width: 580px;
+  user-select: none;
+  color: #ffffffbb;
+}
+
+/* Image container */
+.image-container {
+  flex: 1 1 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 16px;
+  box-shadow: 0 0 40px #999ee399;
+  user-select: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .content-wrapper {
+    flex-direction: column;
+    padding: 1.5rem 2rem;
+    gap: 2.5rem;
+    text-align: center;
+  }
+  .text-container,
+  .image-container {
+    flex: none;
+    width: 100%;
+  }
+  .welcome-title {
+    font-size: 2rem;
+  }
+  .welcome-subtitle {
+    font-size: 1rem;
+  }
+  .image-container img {
+    width: 80%;
+    height: auto;
+    box-shadow: 0 0 25px #999ee366;
+  }
+  .nav-items {
+    margin-right: 3rem;
+    gap: 20px;
+  }
+  .signup-button {
+    min-width: 75px;
+    padding: 6px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-title {
+    font-size: 1.7rem;
+  }
+  .welcome-subtitle {
+    font-size: 0.9rem;
+  }
+  .content-wrapper {
+    padding: 1rem 1.5rem;
+    gap: 1.8rem;
+  }
+  .nav-items {
+    margin-right: 2rem;
+    gap: 16px;
+  }
+  .signup-button {
+    min-width: 70px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+  }
+  .brand-name {
+    font-size: 1.4rem;
+  }
+}

@@ -1,0 +1,242 @@
+/* Reset and global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
+  overflow-x: hidden;
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+  display: flex;
+  width: 95vw;
+  height: 95vh;
+  background: #0b0b0b;
+  overflow: auto;
+}
+.dashboard-main {
+  flex: 3 1 0%;
+  min-width: 0;
+  max-width: 880px;
+  background: #1b1b1c;
+  box-sizing: border-box;
+  margin-right: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 55px;
+  height: 86vh;
+  border-radius: 5px;
+}
+.dashboard-sidebar {
+  flex: 1 1 0%;
+  min-width: 230px;
+  max-width: 25vw;
+  background: #1b1b1c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: -2px 0 14px rgba(0,0,0,0.16);
+  padding-top: 35px;
+  margin-top: 55px;
+  height: 86vh;
+  border-radius: 5px;
+}
+
+/* WEEKLY CHARTS (LEFT MAIN) - FLEX LAYOUT */
+.weekly-charts {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+/* Top chart full width */
+.main-weekly-chart {
+  width: 95%;
+  height: 280px;
+  background: #23272f;
+  border-radius: 5px;
+  padding: 25px;
+  box-sizing: border-box;
+  position: relative;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-left: 30px;
+}
+
+/* Bottom row: 2 charts side by side */
+.bottom-charts-row {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  width: 99%;
+  margin-top: 0;
+  margin-left: 5px;
+}
+
+/* Chart box styling common to all */
+.chart-box {
+  background: #212226;
+  border-radius: 5px;
+  flex: 1 1 0;
+  height: 180px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 99%;
+  margin-left: 5px;
+  margin-top: 1px;
+  border: 1px solid rgb(76, 76, 76);
+}
+.chart-box h4 {
+  color: #e4e6e5;
+  font-size: 1.04rem;
+  font-weight: 300;
+  margin-bottom: 6px;
+}
+
+/* Chart.js canvas sizing inside chart boxes */
+.chart-box canvas,
+.main-weekly-chart canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* Responsive: Stack bottom charts on small screens */
+@media (max-width: 900px) {
+  .bottom-charts-row {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .chart-box {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* Sidebar and Profile Cards */
+.profile-progress-card {
+  width: 80%;
+  background: #22242c;
+  padding: 40px 20px;
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.16);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 18px;
+  margin-top: 30px;
+  border: 1px solid rgb(76, 76, 76)
+}
+
+.progress-number {
+  margin-top: 6px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2ecc40;
+  text-align: center;
+}
+
+.profile-name {
+  margin-top: 2px;
+  font-size: 1.07rem;
+  font-weight: 600;
+  color: #fcfcfc;
+  text-align: center;
+}
+
+.balance-score {
+  margin-top: 1px;
+  font-size: 0.95rem;
+  color: #a2a3af;
+  text-align: center;
+}
+
+/* Two boxes under ProgressBar - row layout */
+.progress-stats-row {
+  display: flex;
+  flex-direction: row;
+  gap: 11px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+/* Small stat boxes */
+.small-stat-box {
+  background: #23272f;
+  border-radius: 8px;
+  padding: 10px 18px;
+  min-width: 110px;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(40,255,40,0.05);
+  border: 2px solid transparent;
+}
+
+.small-stat-box.health-score {
+  border-color: #2ecc40;
+}
+.small-stat-box.mood-score {
+  border-color: #ee5253;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: #cccccc;
+  font-weight: 500;
+  margin-bottom: 4px;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.stat-number {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fcfcfc;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  .progress-stats-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .small-stat-box {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* Insights Section */
+.insights-container {
+  background: #212226;
+  border-radius: 5px;
+  padding: 14px 15px 5px 0;
+  margin-bottom: 18px;
+  width: 99%;
+  margin-top: 5px;
+  margin-left: 5px;
+  border: 1px solid rgb(76, 76, 76);
+}
+.insights-container h4 {
+  color: #d7d4d4;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.insights-container p {
+  margin-bottom: 5px;
+  color: #bcb6b6;
+  font-size: 0.95rem;
+}
