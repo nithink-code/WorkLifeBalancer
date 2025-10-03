@@ -1,0 +1,488 @@
+/* Dashboard Container */
+.dashboard-container1 {
+  min-height: 100vh;
+  background-color: #000000;
+  margin-top: 25px;
+}
+
+/* Welcome Section */
+.welcome-section {
+  background-color: #0f0e0e;
+  text-align: center;
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.fire-icon-wrapper {
+  display: inline-block;
+  animation: bounce 2s infinite;
+}
+
+.fire-icon {
+  font-size: 60px;
+  display: inline-block;
+  filter: drop-shadow(0 4px 8px rgba(255, 107, 0, 0.3));
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #6c7483;
+  margin-bottom: 10px;
+}
+
+.welcome-subtitle {
+  font-size: 1.1rem;
+  color: #718096;
+  margin-bottom: 0;
+  margin-left: 260px;
+  margin-top: 15px;
+}
+
+/* Action Buttons Section */
+.action-buttons-section {
+  animation: fadeInUp 0.6s ease-out 0.2s backwards;
+}
+
+/* Layout the three action buttons (Task / Break / Mood) in a single row with equal spacing */
+.action-buttons-section .row {
+  margin-top: 5px;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap; /* keep buttons on one line */
+}
+
+.action-buttons-row {
+  width: 100%;
+}
+
+.action-col {
+  flex: 0 1 32%; /* slightly wider so text fits on single line */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Make Mood button column slightly wider to accommodate longer label */
+.action-col.mood-col {
+  flex: 0 1 38%;
+}
+
+.action-btn {
+  white-space: nowrap; /* prevent text wrap */
+}
+
+/* Allow horizontal scroll on the action buttons section for very narrow viewports */
+.action-buttons-section {
+  overflow-x: auto;
+}
+
+/* Slightly reduce min-width of buttons so they fit better on small screens while keeping touch targets usable */
+.action-btn {
+  min-width: 120px;
+}
+
+.mood-btn svg {
+  margin-right: 8px; /* ensure icon sits nicely before text */
+}
+
+.mood-btn {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.action-btn {
+  padding: 18px 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* make buttons narrower: prefer ~28% width each, but allow shrinking */
+  flex: 0 1 28%;
+  max-width: 440px;
+  min-width: 140px; /* ensure usable touch target */
+  gap: 1px;
+}
+
+.action-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.action-btn:active {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #5568d3 0%, #65408b 100%);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #65408b 100%);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+  border: none;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #4a9428 0%, #8fc752 100%);
+}
+
+/* Content Section */
+.content-section {
+  background-color: #1c1b1b;
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.6s ease-out 0.4s backwards;
+}
+
+.section-header {
+  border-bottom: 3px solid #667eea;
+  padding-bottom: 15px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #70737b;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+
+.section-title svg {
+  flex-shrink: 0;
+}
+
+/* Empty State */
+.empty-state {
+  padding: 60px 20px;
+}
+
+.empty-state svg {
+  opacity: 0.3;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+}
+
+/* Task Cards */
+.tasks-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.task-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  background-color: #0f0e0e;
+  overflow: hidden;
+}
+
+.task-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.task-card .card-body {
+  padding: 25px;
+}
+
+.task-type-badge .badge {
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.delete-btn {
+  border-radius: 8px;
+  padding: 6px 12px;
+  transition: all 0.3s ease;
+  background-color: #dc3545;
+}
+
+.delete-btn:hover {
+  transform: scale(1.1);
+  background-color: #dc3545;
+  color: white;
+  border-color: #dc3545;
+}
+
+/* Task Details */
+.task-details {
+  margin-top: 15px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #8c929d;
+}
+
+.detail-row svg {
+  flex-shrink: 0;
+  background-color: #8c929d;
+}
+
+.detail-row strong {
+  margin-right: 8px;
+  color: #8c929d;
+}
+
+.detail-row .badge {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+}
+
+/* Mood Check-in Inline */
+.mood-checkin-inline {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  border-radius: 12px;
+  margin-top: 15px;
+  animation: slideIn 0.4s ease-out;
+}
+
+.mood-checkin-inline .badge {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+}
+
+/* Badges */
+.badge {
+  font-weight: 600;
+}
+
+.bg-info {
+  background-color: #3498db !important;
+}
+
+.bg-success {
+  background-color: #2ecc71 !important;
+}
+
+.bg-warning {
+  background-color: #f39c12 !important;
+}
+
+.bg-secondary {
+  background-color: #95a5a6 !important;
+}
+
+.bg-primary {
+  background-color: #667eea !important;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 2rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 1rem;
+  }
+
+  .fire-icon {
+    font-size: 50px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .action-btn {
+    font-size: 1rem;
+    padding: 15px 20px;
+  }
+
+  /* Stack action buttons vertically on very small screens */
+  .action-buttons-section .row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .content-section {
+    padding: 25px 20px;
+  }
+
+  .task-card .card-body {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .welcome-section {
+    padding: 30px 20px;
+  }
+
+  .welcome-title {
+    font-size: 1.75rem;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .content-section {
+    padding: 20px 15px;
+  }
+
+  .detail-row {
+    font-size: 0.9rem;
+  }
+}
+
+
+
+/* Button Focus States */
+.btn:focus,
+.btn:active {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+/* Card Hover Effects */
+.task-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.task-card:hover::before {
+  opacity: 1;
+}
+
+/* Badge Rounded Pill Styling */
+.badge.rounded-pill {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+/* SVG Icon Colors */
+.bi-list-task {
+  color: #667eea;
+}
+
+.bi-emoji-smile {
+  color: #2ecc71;
+}
+
+.bi-plus-circle {
+  vertical-align: middle;
+}
+
+/* Loading State (Optional - if you want to add loading indicators) */
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Improved Shadow Effects */
+.card-body {
+  position: relative;
+  z-index: 1;
+}
+
+/* Smooth Transitions */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+button,
+.btn {
+  transition: all 0.3s ease;
+}
+
+/* Container Spacing */
+.container {
+  max-width: 1200px;
+}
+
+/* Badge Group Spacing */
+.badge + .badge {
+  margin-left: 0;
+}

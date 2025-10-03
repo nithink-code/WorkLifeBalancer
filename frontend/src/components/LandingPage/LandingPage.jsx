@@ -3,22 +3,17 @@ import Navbar from "./../Navbar";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import "./LandingPage.css";
+import { useLocation } from "react-router-dom";
 
 const LandingPage = () => {
+  const location = useLocation();
+
   useEffect(() => {
-    // Check for a success message from Google OAuth redirect
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("google_signup_success")) {
-      toast.success("Google Sign Up successful! Welcome aboard", {
-        position: "top-center",
-        autoClose: 8000,
-      });
-
-      // Clear the URL to prevent the toast from showing on every refresh
-      window.history.replaceState(null, "", window.location.pathname);
+    if(location.state?.showSignOutToast){
+      toast.success("Signed out successfully");
+      window.history.replaceState({}, document.title)
     }
-  }, []);
-
+  }, [location.state]);
 
 
   return (

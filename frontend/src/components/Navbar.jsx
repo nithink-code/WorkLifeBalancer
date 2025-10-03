@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Navbar.css";
 import SignUp from "./../components/SignUp/SignUp";
+import {useNavigate} from "react-router-dom";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -28,11 +30,11 @@ const Navbar = () => {
       await axios.get("http://localhost:8080/auth/logout", {
         withCredentials: true,
       });
-    } catch (err) {
-      console.error(err);
-    } finally {
       setUser(null);
       setDropdownOpen(false);
+      navigate("/", { state: { showSignOutToast: true } });
+    } catch(error){
+      console.error("Logout failed");
     }
   };
 
@@ -43,7 +45,7 @@ const Navbar = () => {
           Work Life Balancer
         </a>
         <div className="nav-items">
-          <a className="nav-link-custom" href="#tasks">
+          <a className="nav-link-custom" href="/tasks">
             Tasks
           </a>
           <a className="nav-link-custom" href="#mood-check">

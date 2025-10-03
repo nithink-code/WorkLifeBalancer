@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
-  googleId: { type: String, required: false, unique: true },
+  googleId: { type: String, sparse: true, unique: true},
   displayName: String,
   email: String,
   createdAt: { type: Date, default: Date.now },

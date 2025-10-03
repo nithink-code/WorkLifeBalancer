@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "./SignUp.css";
+import {useNavigate} from "react-router-dom";
 
 const SignUp = ({ onClose, onSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleEsc = (e) => {
@@ -16,28 +18,52 @@ const SignUp = ({ onClose, onSuccess }) => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
+
+  // Form Validation
+  const validateForm = () =>{
+        if(!email.trim() || !password.trim()){
+            toast.error("Email and Password are required. ");
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailRegex.test(email)){
+            toast.error("Please enter a valid email address.");
+            return false;
+        }
+        if(password.length < 6){
+          toast.error("Password must be at least 6 characters long.");
+          return false;
+        }
+        return true;
+  }
+
   const handleFormSignUp = async (e) => {
     e.preventDefault();
+
+    if(!validateForm()) return;
     try {
       const res = await axios.post(
         "http://localhost:8080/auth/signup",
         { fullName: email.split("@")[0], email, password },
         { withCredentials: true }
       );
+      
       if (res.status >= 200 && res.status < 300) {
-        toast.success("Signup successful! Welcome aboard", {
-          position: "top-center",
-          autoClose: 8000,
-        });
-        setIsSignedIn(true);
-        onSuccess();
-        onClose();
+        // Store the token and user info in localStorage
+        if (res.data.token) {
+          localStorage.setItem("token", res.data.token);
+        }
+        if (res.data.user) {
+          localStorage.setItem("userId", res.data.user.id);
+          localStorage.setItem("userEmail", res.data.user.email);
+          localStorage.setItem("userName", res.data.user.name);
+        }
+        
+        navigate("/dashboard",{ state: { showToast: true } });
       }
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Signup failed. Please try again.",
-        { position: "top-center", autoClose: 8000 }
-      );
+      toast.error(error.response?.data?.message || "Signup failed. Please try again.");
     }
   };
 
@@ -52,16 +78,16 @@ const SignUp = ({ onClose, onSuccess }) => {
         {},
         { withCredentials: true }
       );
-      toast.success("Signed out successfully!", {
-        position: "top-center",
-        autoClose: 8000,
-      });
-      setIsSignedIn(false);
+      
+      // Clear localStorage
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userName");
+      
+      navigate("/", { state: { showSignOutToast: true}});
     } catch (error) {
-      toast.error("Sign out failed. Please try again.", {
-        position: "top-center",
-        autoClose: 8000,
-      });
+      toast.error("Sign out failed. Please try again.");
     }
   };
 

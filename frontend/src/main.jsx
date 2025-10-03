@@ -6,11 +6,12 @@ import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
+  <>
     <App />
     <ToastContainer
       position="top-center"
-      autoClose={8000}
+      autoClose={3000}
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick
@@ -21,5 +22,6 @@ createRoot(document.getElementById("root")).render(
       theme="light"
       transition={Bounce}
     />
-  </StrictMode>
+    </>
+  // </StrictMode>
 );

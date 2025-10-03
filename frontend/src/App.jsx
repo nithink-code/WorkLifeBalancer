@@ -4,6 +4,8 @@ import './App.css';
 import LandingPage from './components/LandingPage/LandingPage';
 import SignUp from './components/SignUp/SignUp';
 import Dashboard from './components/WeeklyDashboard/Dashboard';
+import TaskDashboard from './components/Task/TaskDashboard';
+
 
 function App() {
 
@@ -14,6 +16,7 @@ function App() {
         <Route path='/'element={<LandingPage />} />
         <Route path='/signup' element ={<SignUp />} />
         <Route path='/dashboard' element ={<Dashboard />} />
+        <Route path='/tasks' element ={<TaskDashboard />} />
       </Routes>
      </Router>
 </>

@@ -1,0 +1,142 @@
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background-color: #1d1b1b;
+  border-radius: 15px;
+  box-shadow: 0 2px 24px 0 rgba(0, 0, 0, 0.11);
+  min-width: 340px;
+  padding: 32px 28px 24px 28px;
+  max-width: 380px;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.modal-header h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #9ca3af;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #565656;
+  cursor: pointer;
+  padding: 0 6px;
+  border-radius: 6px;
+  transition: background 0.1s;
+}
+
+.modal-close:hover {
+  background: #ededed;
+}
+
+.modal-body {
+  margin-bottom: 12px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: #9ca3af;
+  text-align: left;
+}
+
+.form-group input,
+.form-group select {
+  padding: 7px 12px;
+  font-size: 1rem;
+  border: 1px solid #d4d8dd;
+  border-radius: 7px;
+  background: #fff;
+  transition: border-color .2s;
+}
+
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: #407bff;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.btn {
+  padding: 7px 22px;
+  border: none;
+  border-radius: 7px;
+  background: #e2e6ed;
+  color: #212529;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.16s;
+}
+
+.btn.primary {
+  background: #407bff;
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: #2051c8;
+}
+
+.btn:hover {
+  background: #b8b9be;
+}
+
+.error {
+  color: #e33e3e;
+  margin-top: 0.25em;
+  font-size: 0.97em;
+  text-align: right;
+}
+
+/* Small divider and section title used by integrated break fields */
+.form-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+  margin: 6px 0 6px 0;
+  border-radius: 2px;
+}
+
+.section-title {
+  margin: 0;
+  color: #c7c9cc;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}

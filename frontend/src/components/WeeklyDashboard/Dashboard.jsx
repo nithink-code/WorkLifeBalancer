@@ -1,26 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 import WeeklyCharts from "./WeeklyCharts";
-import Insights from "./Insights";
 import ProfileProgressCard from "./ProfileProgressCard";
+import DailyStreaks from "./DailyStreaks";
 import "./Dashboard.css";
+import Navbar from "../Navbar";
 
-const DashboardContainer = () => (
-  <div className="dashboard-container">
-    <div className="dashboard-main">
-       <Insights />
-      <WeeklyCharts />
+const DashboardContainer = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const manualState = location.state?.showToast;
+    const params = new URLSearchParams(location.search);
+    const oauthToast = params.get("showToast");
+    if (manualState || oauthToast === "true") {
+      toast.success("Signed up successfully");
+      window.history.replaceState({}, document.title, "/dashboard");
+    }
+  }, [location]);
+
+  return (
+    <div className="dashboard-container">
+      <div className="dashboard-main">
+        <Navbar />
+        <DailyStreaks />
+        <WeeklyCharts />
+      </div>
+      <div className="dashboard-sidebar">
+        <ProfileProgressCard
+          user={{
+            avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop",
+            progress: 65,
+            moodScore: 85,
+            maxStreak: 12,
+          }}
+        />
+      </div>
     </div>
-    <div className="dashboard-sidebar">
-      <ProfileProgressCard
-        user={{
-          name: "Alex Johnson",
-          avatar: "/avatar.png",
-          progress: 70,
-          balanceScore: 82,
-        }}
-      />
-    </div>
-  </div>
-);
+  );
+};
 
 export default DashboardContainer;

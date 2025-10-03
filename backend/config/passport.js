@@ -1,6 +1,6 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const UserAuth = require("../models/Auth");
+const userGoogle = require('../models/Auth');
 const jwt = require("jsonwebtoken");
 
 passport.use(new GoogleStrategy({
@@ -9,10 +9,11 @@ passport.use(new GoogleStrategy({
   callbackURL: "/auth/google/callback",
 }, async (accessToken, refreshToken, profile, done) => {
   try {
-    // Find or create user logic
-    let user = await UserAuth.findOne({ email: profile.emails[0].value });
+    // Find or create user logic by google ID
+    let user = await userGoogle.findOne({ googleId: profile.id });
     if (!user) {
-      user = new UserAuth({
+      user = new userGoogle({
+        googleId: profile.id,
         displayName: profile.displayName,
         email: profile.emails[0].value,
       });

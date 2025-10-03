@@ -1,242 +1,411 @@
-/* Reset and global styles */
-* {
+html, body, #root {
+  height: 100%;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-html, body {
-  width: 100vw;
-  height: 100vh;
-  background: #000000;
-  overflow-x: hidden;
+  overflow-y: auto !important;
+  width: 100%;
 }
 
-/* Dashboard Layout */
+/* Main Container */
 .dashboard-container {
+  min-height: 100vh;
+  background-color: black;
+  color: #fff;
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   display: flex;
-  width: 95vw;
-  height: 95vh;
-  background: #0b0b0b;
-  overflow: auto;
+  gap: 14px;
+  width: 1240px;
+  margin-top: 50px;
+  margin-left: 10px;
 }
+
 .dashboard-main {
-  flex: 3 1 0%;
-  min-width: 0;
-  max-width: 880px;
-  background: #1b1b1c;
-  box-sizing: border-box;
-  margin-right: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-top: 55px;
-  height: 86vh;
-  border-radius: 5px;
+  flex: 1;
 }
+
 .dashboard-sidebar {
-  flex: 1 1 0%;
-  min-width: 230px;
-  max-width: 25vw;
-  background: #1b1b1c;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: -2px 0 14px rgba(0,0,0,0.16);
-  padding-top: 35px;
-  margin-top: 55px;
-  height: 86vh;
-  border-radius: 5px;
+  width: 300px;
 }
 
-/* WEEKLY CHARTS (LEFT MAIN) - FLEX LAYOUT */
-.weekly-charts {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  width: 100%;
-}
-
-/* Top chart full width */
-.main-weekly-chart {
-  width: 95%;
-  height: 280px;
-  background: #23272f;
-  border-radius: 5px;
-  padding: 25px;
-  box-sizing: border-box;
-  position: relative;
+/* Daily Streaks */
+.daily-streaks-container {
+  background-color: #0f0e0e;
+  border-radius: 16px;
+  padding: 24px;
   margin-bottom: 10px;
-  margin-top: 5px;
-  margin-left: 30px;
+  transition: box-shadow 0.2s;
+  border: 1px solid rgb(69, 68, 68);
 }
 
-/* Bottom row: 2 charts side by side */
-.bottom-charts-row {
+.streaks-header {
+  margin-bottom: 24px;
+}
+
+.streaks-header-dropdown {
   display: flex;
-  flex-direction: row;
-  gap: 18px;
-  width: 99%;
-  margin-top: 0;
-  margin-left: 5px;
-}
-
-/* Chart box styling common to all */
-.chart-box {
-  background: #212226;
-  border-radius: 5px;
-  flex: 1 1 0;
-  height: 180px;
-  box-sizing: border-box;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 99%;
-  margin-left: 5px;
-  margin-top: 1px;
-  border: 1px solid rgb(76, 76, 76);
-}
-.chart-box h4 {
-  color: #e4e6e5;
-  font-size: 1.04rem;
-  font-weight: 300;
-  margin-bottom: 6px;
-}
-
-/* Chart.js canvas sizing inside chart boxes */
-.chart-box canvas,
-.main-weekly-chart canvas {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
-}
-
-/* Responsive: Stack bottom charts on small screens */
-@media (max-width: 900px) {
-  .bottom-charts-row {
-    flex-direction: column;
-    gap: 14px;
-  }
-  .chart-box {
-    min-width: 0;
-    width: 100%;
-  }
-}
-
-/* Sidebar and Profile Cards */
-.profile-progress-card {
-  width: 80%;
-  background: #22242c;
-  padding: 40px 20px;
-  border-radius: 14px;
-  box-shadow: 0 5px 18px rgba(0,0,0,0.16);
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  margin-bottom: 18px;
-  margin-top: 30px;
-  border: 1px solid rgb(76, 76, 76)
+  justify-content: space-between;
 }
 
-.progress-number {
-  margin-top: 6px;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #2ecc40;
-  text-align: center;
+.dropdown-arrow {
+  font-size: 22px;
+  color: #9ca3af;
+  margin-left: 12px;
+  transition: transform 0.2s;
 }
 
-.profile-name {
-  margin-top: 2px;
-  font-size: 1.07rem;
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+  color: #fff;
+}
+
+.streaks-title {
+  font-size: 20px;
   font-weight: 600;
-  color: #fcfcfc;
-  text-align: center;
-}
-
-.balance-score {
-  margin-top: 1px;
-  font-size: 0.95rem;
-  color: #a2a3af;
-  text-align: center;
-}
-
-/* Two boxes under ProgressBar - row layout */
-.progress-stats-row {
+  margin-bottom: 8px;
   display: flex;
-  flex-direction: row;
-  gap: 11px;
-  width: 100%;
-  justify-content: center;
-  margin-top: 18px;
-}
-
-/* Small stat boxes */
-.small-stat-box {
-  background: #23272f;
-  border-radius: 8px;
-  padding: 10px 18px;
-  min-width: 110px;
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(40,255,40,0.05);
-  border: 2px solid transparent;
+  gap: 8px;
 }
 
-.small-stat-box.health-score {
-  border-color: #2ecc40;
+.streaks-subtitle {
+  color: #9ca3af;
+  font-size: 20px;
+  margin-left: 40px;
+  margin-top: 2px;
+  margin-bottom: 40px;
 }
-.small-stat-box.mood-score {
-  border-color: #ee5253;
+
+.streak-stats-row {
+  display: flex;
+  gap: 48px;
+  margin-bottom: 24px;
+}
+
+.streak-stat {
+  flex: 1;
+}
+
+.streak-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  color: #9ca3af;
+  font-size: 14px;
+}
+.streak-label span{
+  margin-left: 140px;
+  font-size: 20px;
+}
+
+.streak-icon {
+  font-size: 24px;
+}
+
+.streak-number {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.week-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-day {
+  background-color: #2a2a2a;
+  border-radius: 12px;
+  padding: 16px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.calendar-day.active {
+  background-color: #2a2a2a;
+}
+
+.calendar-day:hover {
+  opacity: 0.8;
+}
+
+.day-name {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-bottom: 8px;
+}
+
+.day-check {
+  font-size: 18px;
+  min-height: 22px;
+}
+
+/* Track Progress Section */
+.track-progress-section {
+  background-color: #0f0e0e;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 10px;
+  border: 1px solid rgb(69, 68, 68);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  color: white;
+}
+
+.info-button {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px 8px;
+}
+
+.info-button:hover {
+  color: #fff;
+}
+
+.section-subtitle {
+  color: #9ca3af;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.main-chart-container {
+  height: 250px;
+  margin-bottom: 24px;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.stat-box {
+  background-color: #0f0e0e;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
 }
 
 .stat-label {
-  font-size: 0.95rem;
-  color: #cccccc;
-  font-weight: 500;
-  margin-bottom: 4px;
-  text-align: center;
-  letter-spacing: 0.02em;
-}
-
-.stat-number {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #fcfcfc;
-  letter-spacing: 0.02em;
-  text-align: center;
-}
-
-@media (max-width: 500px) {
-  .progress-stats-row {
-    flex-direction: column;
-    gap: 8px;
-  }
-  .small-stat-box {
-    min-width: 0;
-    width: 100%;
-  }
-}
-
-/* Insights Section */
-.insights-container {
-  background: #212226;
-  border-radius: 5px;
-  padding: 14px 15px 5px 0;
-  margin-bottom: 18px;
-  width: 99%;
-  margin-top: 5px;
-  margin-left: 5px;
-  border: 1px solid rgb(76, 76, 76);
-}
-.insights-container h4 {
-  color: #d7d4d4;
-  font-weight: 400;
+  color: #9ca3af;
+  font-size: 14px;
   margin-bottom: 8px;
 }
-.insights-container p {
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* Bottom Charts */
+.bottom-charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.chart-box {
+  background-color: #0f0e0e;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid rgb(69, 68, 68)
+}
+
+.chart-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.chart-wrapper {
+  height: 200px;
+}
+
+.chart-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #2a2a2a;
+  border-radius: 8px;
+}
+
+.footer-label {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.footer-value {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Profile Progress Card - Right Sidebar */
+.profile-progress-card {
+  background-color: #0f0e0e;
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+  position: sticky;
+  top: 24px;
+  height: 500px;
+  border: 1px solid rgb(69, 68, 68);
+}
+
+.circular-progress-wrapper {
+  width: 180px;
+  height: 200px;
+  margin-top: 40px;
+  position: relative;
+  margin-left: 40px;
   margin-bottom: 5px;
-  color: #bcb6b6;
-  font-size: 0.95rem;
+}
+
+.avatar-container {
+  position: absolute;
+  margin-top: 30px;
+}
+
+.avatar-image {
+  width: 160px;
+  height: 210px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 80px;
+}
+
+.progress-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: none;
+  color: #16a34a;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 85px;
+  margin-left: 8px;
+}
+
+/* Sidebar Stats */
+.sidebar-stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.sidebar-stat-box {
+  background-color: #0f0e0e;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: center;
+  margin-top: 18px;
+  height: 80px;
+  width: 110px;
+  border: 1px solid rgb(69, 68, 68);
+  cursor: pointer;
+}
+
+.sidebar-stat-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+
+.sidebar-stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #9ca3af;
+}
+
+/* Download Report Button */
+.download-report-btn {
+  width: 100%;
+  background-color: #201f1f;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgb(69, 68, 68);
+}
+
+.download-report-btn:hover {
+  border: 1px solid #34B27B;
+}
+.sidebar-stat-box:hover{
+  border: 1px solid #34B27B;
+}
+
+.download-report-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .dashboard-sidebar {
+    width: 100%;
+  }
+
+  .profile-progress-card {
+    position: relative;
+    top: 0;
+  }
+
+  .bottom-charts-row {
+    grid-template-columns: 1fr;
+  }
+
+  .streak-stats-row {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .week-calendar {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .calendar-day {
+    padding: 12px 4px;
+  }
+
+  .day-name {
+    font-size: 10px;
+  }
 }
