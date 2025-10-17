@@ -125,7 +125,9 @@ html, body, #root {
 }
 
 .calendar-day.active {
-  background-color: #2a2a2a;
+  background-color: #10b981; /* green */
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.15);
 }
 
 .calendar-day:hover {
@@ -141,6 +143,7 @@ html, body, #root {
 .day-check {
   font-size: 18px;
   min-height: 22px;
+  color: inherit;
 }
 
 /* Track Progress Section */
@@ -234,6 +237,27 @@ html, body, #root {
   margin-bottom: 16px;
 }
 
+.optimistic-badge {
+  display: inline-block;
+  background: #10b981;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  transform: scale(0.6);
+  animation: badge-pulse 900ms ease forwards;
+}
+.optimistic-badge.small { font-size: 11px; padding: 2px 6px; }
+
+@keyframes badge-pulse {
+  0% { transform: scale(0.6); opacity: 0; }
+  20% { transform: scale(1.2); opacity: 1; }
+  60% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.9; }
+}
+
 .chart-wrapper {
   height: 200px;
 }
@@ -284,16 +308,16 @@ html, body, #root {
 }
 
 .avatar-image {
-  width: 160px;
-  height: 210px;
+  width: 140px;
+  height: 190px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 80px;
+  margin-bottom: 64px;
 }
 
 .progress-badge {
   position: absolute;
-  bottom: 10px;
+  bottom: 1px;
   left: 50%;
   transform: translateX(-50%);
   background-color: none;

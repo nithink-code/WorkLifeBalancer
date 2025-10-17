@@ -4,11 +4,13 @@ import { useLocation } from "react-router-dom";
 import WeeklyCharts from "./WeeklyCharts";
 import ProfileProgressCard from "./ProfileProgressCard";
 import DailyStreaks from "./DailyStreaks";
+import { useWeeklyData } from "../../contexts/WeeklyDataContext";
 import "./Dashboard.css";
 import Navbar from "../Navbar";
 
 const DashboardContainer = () => {
   const location = useLocation();
+  const { currentStreak, longestStreak } = useWeeklyData();
 
   useEffect(() => {
     const manualState = location.state?.showToast;
@@ -30,10 +32,11 @@ const DashboardContainer = () => {
       <div className="dashboard-sidebar">
         <ProfileProgressCard
           user={{
-            avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop",
+            avatar:
+              "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop",
             progress: 65,
             moodScore: 85,
-            maxStreak: 12,
+            maxStreak: longestStreak || 0,
           }}
         />
       </div>

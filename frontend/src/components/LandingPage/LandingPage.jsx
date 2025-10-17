@@ -22,7 +22,7 @@ const LandingPage = () => {
       <main className="content-wrapper" role="main">
         <section className="text-container" aria-label="Welcome Text">
           <h1 className="welcome-title">Welcome to Work Life Balancer</h1>
-          <p className="welcome-subtitle">
+          <p className="welcome-subtitle subtitle-start">
             Discover the power of balancing your professional tasks with your
             mood and well-being. A healthy work-life balance leads to increased
             productivity, happiness, and long-term success.

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
+import { useWeeklyData } from '../../../contexts/WeeklyDataContext';
 import Modal from "../Modal";
 
 const API_URL = "http://localhost:8080";
 
 export default function AddTaskForm({ show, onClose }) {
+  const useCtx = useWeeklyData();
   const [type, setType] = useState("work");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -29,7 +31,13 @@ export default function AddTaskForm({ show, onClose }) {
       if (!res.ok) throw new Error("Failed to add task");
   toast.success("Task added");
 
-      onClose();
+  onClose();
+  // Refresh context so charts/streaks update immediately
+  try{ useCtx.refresh && useCtx.refresh(); }catch(e){}
+  console.log('TaskForm: called ctx.refresh');
+  try{ useCtx.optimisticAddTask && useCtx.optimisticAddTask(new Date(startTime)); }catch(e){}
+  // fallback: Notify charts to refresh (older components)
+  try{ window.dispatchEvent(new Event('weeklyDataUpdated')); }catch(e){}
     } catch (err) {
       setError(err.message);
       toast.error(err.message || 'Failed to add task');

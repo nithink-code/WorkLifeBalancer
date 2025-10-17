@@ -1,12 +1,15 @@
 import React from "react";
 import { Bar, Line } from "react-chartjs-2";
-import {
+import { useWeeklyData } from "../../contexts/WeeklyDataContext";
+
+import{
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
   BarElement,
+  Filler,
   Title,
   Tooltip,
   Legend,
@@ -18,14 +21,24 @@ ChartJS.register(
   PointElement,
   LineElement,
   BarElement,
+  Filler,
   Title,
   Tooltip,
   Legend
 );
 
+const API_URL = "http://localhost:8080";
+
 const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const WeeklyCharts = () => {
+  const { labels, tasksPerDay, breaksPerDay, moodAvgPerDay, moodCountsPerDay, lastOptimistic } = useWeeklyData();
+  // Ensure we always pass arrays of length 7 to charts so optimistic updates render
+  const safeLabels = Array.isArray(labels) && labels.length === 7 ? labels : weekDays;
+  const safeTasks = Array.isArray(tasksPerDay) ? (() => { const a = [...tasksPerDay]; while(a.length < 7) a.push(0); return a.slice(0,7); })() : Array(7).fill(0);
+  const safeBreaks = Array.isArray(breaksPerDay) ? (() => { const a = [...breaksPerDay]; while(a.length < 7) a.push(0); return a.slice(0,7); })() : Array(7).fill(0);
+  const safeMoodAvg = Array.isArray(moodAvgPerDay) ? (() => { const a = [...moodAvgPerDay]; while(a.length < 7) a.push(null); return a.slice(0,7).map(v => v === null ? null : Number(v)); })() : Array(7).fill(null);
+  const safeMoodCounts = Array.isArray(moodCountsPerDay) ? (() => { const a = [...moodCountsPerDay]; while(a.length < 7) a.push(0); return a.slice(0,7); })() : Array(7).fill(0);
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -45,12 +58,14 @@ const WeeklyCharts = () => {
     },
   };
 
+  // data comes from WeeklyDataContext; it already handles polling and events
+
   return (
     <div className="weekly-charts">
       {/* Track Your Progress Section */}
       <div className="track-progress-section">
         <div className="section-header">
-          <h3 className="section-title">Track Your Progress</h3>
+          <h3 className="section-title">Track Your Task Progress {lastOptimistic && lastOptimistic.type === 'task' && (<span className="optimistic-badge">+1</span>)}</h3>
         </div>
         <p className="section-subtitle">
           Showing Daily New Score for the last 7 days
@@ -60,15 +75,13 @@ const WeeklyCharts = () => {
         <div className="main-chart-container">
           <Line
             data={{
-              labels: Array.from({ length: 30 }, (_, i) => i + 1),
+              labels: safeLabels,
               datasets: [
                 {
-                  data: Array.from(
-                    { length: 30 },
-                    () => Math.floor(Math.random() * 40) + 30
-                  ),
+                  label: "Tasks Completed",
+                  data: safeTasks,
                   borderColor: "#10b981",
-                  backgroundColor: "rgba(16, 185, 129, 0.1)",
+                  backgroundColor: "rgba(16, 185, 129, 0.12)",
                   fill: true,
                   tension: 0.4,
                   pointRadius: 0,
@@ -76,16 +89,7 @@ const WeeklyCharts = () => {
                 },
               ],
             }}
-            options={{
-              ...chartOptions,
-              scales: {
-                ...chartOptions.scales,
-                x: {
-                  ...chartOptions.scales.x,
-                  display: false,
-                },
-              },
-            }}
+            options={chartOptions}
           />
         </div>
 
@@ -97,7 +101,9 @@ const WeeklyCharts = () => {
           </div>
           <div className="stat-box">
             <div className="stat-label">Mood Check-in 🔥</div>
-            <div className="stat-value">0</div>
+            <div className="stat-value">
+              {moodAvgPerDay.length ? moodAvgPerDay.reduce((a,b)=> a+b, 0) / moodAvgPerDay.length : "N/A"}
+            </div>
           </div>
         </div>
       </div>
@@ -105,16 +111,17 @@ const WeeklyCharts = () => {
       {/* Bottom Charts Row */}
       <div className="bottom-charts-row">
         <div className="chart-box">
-          <h4 className="chart-title">Health Progress</h4>
+          <h4 className="chart-title">Break Progress {lastOptimistic && lastOptimistic.type === 'break' && (<span className="optimistic-badge small">+1</span>)}</h4>
           <div className="chart-wrapper">
             <Bar
               data={{
-                labels: weekDays,
+                labels: safeLabels,
                 datasets: [
                   {
-                    data: [4, 6, 3, 5, 7, 2, 4],
-                    backgroundColor: "#3b82f6",
-                    borderRadius: 8,
+                   label: "Breaks",
+                   data: safeBreaks,
+                   backgroundColor: "#3b82f6",
+                   borderRadius: 4,
                   },
                 ],
               }}
@@ -123,19 +130,20 @@ const WeeklyCharts = () => {
           </div>
           <div className="chart-footer">
             <span className="footer-label">Completed</span>
-            <span className="footer-value">2/7</span>
+            <span className="footer-value">{breaksPerDay.reduce((a,b)=> a + b , 0)} / {7}</span>
           </div>
         </div>
 
         <div className="chart-box">
-          <h4 className="chart-title">Mood Progress</h4>
+          <h4 className="chart-title">Mood Progress {lastOptimistic && lastOptimistic.type === 'mood' && (<span className="optimistic-badge small">+1</span>)}</h4>
           <div className="chart-wrapper">
             <Line
               data={{
-                labels: weekDays,
+                labels: safeLabels,
                 datasets: [
                   {
-                    data: [3, 5, 2, 6, 4, 7, 5],
+                    label: "Average Mood",
+                    data: safeMoodAvg,
                     borderColor: "#ec4899",
                     tension: 0.4,
                     pointRadius: 4,
@@ -148,8 +156,12 @@ const WeeklyCharts = () => {
             />
           </div>
           <div className="chart-footer">
-            <span className="footer-label">Completed</span>
-            <span className="footer-value">1/100</span>
+            <span className="footer-label">Average</span>
+            <span className="footer-value">
+              {moodAvgPerDay.length
+                ? (moodAvgPerDay.reduce((a, b) => a + b, 0) / moodAvgPerDay.length).toFixed(2)
+                : "N/A"}
+            </span>
           </div>
         </div>
       </div>

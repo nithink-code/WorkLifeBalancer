@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { useWeeklyData } from "../../contexts/WeeklyDataContext";
 
 const DailyStreaks = () => {
   const [open, setOpen] = useState(false);
+  const { labels, streakData = [], currentStreak = 0, longestStreak = 0 } = useWeeklyData();
 
-  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const streakData = [false, false, false, false, false, true, true];
-  const currentStreak = 1;
-  const longestStreak = 1;
+  // labels array from API corresponds to the same index ordering as streakData
+  const weekDays = Array.isArray(labels) && labels.length === 7 ? labels : ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   return (
     <div className="daily-streaks-container">
@@ -51,15 +51,15 @@ const DailyStreaks = () => {
           </div>
 
           <div className="week-calendar">
-            {weekDays.map((day, idx) => (
-              <div
-                key={day}
-                className={`calendar-day ${streakData[idx] ? "active" : ""}`}
-              >
-                <div className="day-name">{day}</div>
-                <div className="day-check">{streakData[idx] ? "✓" : ""}</div>
-              </div>
-            ))}
+            {weekDays.map((day, idx) => {
+              const active = Array.isArray(streakData) ? !!streakData[idx] : false;
+              return (
+                <div key={`${day}-${idx}`} className={`calendar-day ${active ? "active" : ""}`}>
+                  <div className="day-name">{day}</div>
+                  <div className="day-check">{active ? "✓" : ""}</div>
+                </div>
+              );
+            })}
           </div>
         </>
       )}

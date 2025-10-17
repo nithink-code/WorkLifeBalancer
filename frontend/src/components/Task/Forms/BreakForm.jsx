@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
+import { useWeeklyData } from '../../../contexts/WeeklyDataContext';
 import Modal from "../Modal";
 
 const API_URL = "http://localhost:8080";
 
 export default function AddBreakForm({ show, onClose }) {
+  const useCtx = useWeeklyData();
   const [type, setType] = useState("stretch");
   const [feedback, setFeedback] = useState("");
   const [timestamp, setTimestamp] = useState("");
@@ -34,8 +36,12 @@ export default function AddBreakForm({ show, onClose }) {
         throw new Error(text || `HTTP error ${res.status}`);
       }
 
-      onClose();
-      toast.success('Break added');
+  onClose();
+  toast.success('Break added');
+  try{ useCtx.refresh && useCtx.refresh(); }catch(e){}
+  console.log('BreakForm: called ctx.refresh');
+  try{ useCtx.optimisticAddBreak && useCtx.optimisticAddBreak(new Date(timestamp || Date.now())); }catch(e){}
+  try{ window.dispatchEvent(new Event('weeklyDataUpdated')); }catch(e){}
     } catch (err) {
       console.error("AddBreakForm error:", err);
       setError(err.message || "Failed to add break");

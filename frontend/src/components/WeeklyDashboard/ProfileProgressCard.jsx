@@ -18,7 +18,7 @@ const ProfileProgressCard = ({ user }) => {
           value={user.progress}
           strokeWidth={7}
           styles={buildStyles({
-            pathColor: "#c8cfcbff",
+            pathColor: "#34B27B",
             trailColor: "#2a2a2a",
             strokeLinecap: "round",
           })}

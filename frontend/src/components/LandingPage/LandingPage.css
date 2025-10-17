@@ -5,7 +5,7 @@ html, body, #root {
   background-color: #000000;
   color: white;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   overflow: hidden;
 }
 
@@ -14,18 +14,29 @@ html, body, #root {
   height: calc(100vh - 72px);
   margin-top: 72px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* keep children starting from left */
   align-items: center;
   background-color: #000000;
   width: 100vw;
   color: #34B27B;
   text-align: left;
   gap: 3rem;
-  padding: 2rem 3rem;
+  padding: 2rem 3rem; /* top/bottom and left/right fallback */
   box-sizing: border-box;
   user-select: none;
   overflow: hidden;
   font-family: inherit;
+}
+
+/* Inner wrapper to constrain content and allow left-aligned layout while
+   keeping a maximum content width and proper centering on small screens */
+.content-inner {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  gap: 3rem;
+  margin-left: 0; /* ensure it starts at left edge of the content-wrapper */
+  padding-left: 0;
 }
 
 /* Text container */
@@ -35,6 +46,7 @@ html, body, #root {
   flex-direction: column;
   justify-content: center;
   gap: 1.3rem;
+  padding-left: 0; /* ensure text container starts flush with its parent */
 }
 
 .welcome-title {
@@ -52,6 +64,17 @@ html, body, #root {
   max-width: 580px;
   user-select: none;
   color: #ffffffbb;
+  margin: 0; /* remove default paragraph margins so it lines up with the title */
+  padding: 0;
+  text-align: left; /* enforce left alignment */
+}
+
+/* Utility class to ensure the subtitle starts flush with the title */
+.subtitle-start {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  text-indent: 0;
+  text-align: left;
 }
 
 /* Image container */
@@ -78,6 +101,11 @@ html, body, #root {
     gap: 2.5rem;
     text-align: center;
   }
+  .content-inner {
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+  }
   .text-container,
   .image-container {
     flex: none;
@@ -88,6 +116,10 @@ html, body, #root {
   }
   .welcome-subtitle {
     font-size: 1rem;
+  }
+  .text-container {
+    align-items: center;
+    padding-left: 0;
   }
   .image-container img {
     width: 80%;

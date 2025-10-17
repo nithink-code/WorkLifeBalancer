@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
+import { useWeeklyData } from '../../../contexts/WeeklyDataContext';
 import Modal from "../Modal";
 
 const API_URL = "http://localhost:8080";
 
 export default function AddMoodCheckinForm({ show, onClose }) {
+  const useCtx = useWeeklyData();
   const [mood, setMood] = useState(3);
   const [stress, setStress] = useState(3);
   const [timestamp, setTimestamp] = useState("");
@@ -25,8 +27,12 @@ export default function AddMoodCheckinForm({ show, onClose }) {
         }),
       });
       if (!res.ok) throw new Error("Failed to add mood check-in");
-      onClose();
-      toast.success('Mood check-in added');
+  onClose();
+  toast.success('Mood check-in added');
+  try{ useCtx.refresh && useCtx.refresh(); }catch(e){}
+  console.log('MoodForm: called ctx.refresh');
+  try{ useCtx.optimisticAddMood && useCtx.optimisticAddMood(mood, new Date(timestamp || Date.now())); }catch(e){}
+  try{ window.dispatchEvent(new Event('weeklyDataUpdated')); }catch(e){}
     } catch (err) {
       setError(err.message);
       toast.error(err.message || 'Failed to add mood check-in');
